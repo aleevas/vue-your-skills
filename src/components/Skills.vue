@@ -3,8 +3,10 @@
     <div class="holder">
       <h1>{{title}}</h1>
       <form @submit.prevent="addSkill">
-        <input type="text" placeholder='Just enter your skills...' v-model="skill">
+        <input type="text" placeholder='Just enter your skills...' v-model="skill" name="skill" v-validate="'min:3'" />
         <!-- <button v-on:click="ChangeName" v-bind:disabled="btnState">{{btnName}}</button> -->
+         <!-- <input type="checkbox" id="checkbox" v-model="checked"> -->
+        <p class="alert" v-if="errors.has('skill')">{{errors.first('skill')}}</p>
       </form>
       <ul>
         <li v-for="(value, index) in skills" :key='index'>
@@ -35,13 +37,21 @@ export default {
       bgWith: '100%',
       bgHeight: '25px',
       bgMarginTop: '25px',
-      txtPlaceholder: 'Just enter your skills...',
+      checked: false, 
     }
   },
   methods:{
     addSkill: function() {
-      this.skills.push({skill: this.skill});
-      this.skill= '';
+      this.$validator.validateAll().then((result => {
+        if (result) {
+          this.skills.push({skill: this.skill});
+          this.skill= '';
+        }
+        else {
+          alert('It\'s wrong skill! Please try a new one!');
+        }
+      }));
+
     }
   },
   props: {
