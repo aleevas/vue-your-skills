@@ -6,14 +6,16 @@
         <input type="text" placeholder='Just enter your skills...' v-model="skill" name="skill" v-validate="'min:3'" />
         <!-- <button v-on:click="ChangeName" v-bind:disabled="btnState">{{btnName}}</button> -->
          <!-- <input type="checkbox" id="checkbox" v-model="checked"> -->
-          <transition name="alert-in">
-            <p class="alert" v-if="errors.has('skill')">{{errors.first('skill')}}</p>
-          </transition>
+      <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+        <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill') }}</p>
+      </transition>
       </form>
       <ul>
-        <li v-for="(value, index) in skills" :key='index'>
-          {{value.skill}}
-        </li>
+          <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+          <li v-for="(value, index) in skills" :key='index'>
+            {{value.skill}}
+          </li>
+          </transition-group>
       </ul>
       <!-- <div v-bind:style="{backgroundColor:bgColor,with: bgWith, height: bgHeight, marginTop: bgMarginTop}"> -->
           <p>These are the skills that you possess.</p>
