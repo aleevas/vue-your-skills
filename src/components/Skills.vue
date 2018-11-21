@@ -6,7 +6,9 @@
         <input type="text" placeholder='Just enter your skills...' v-model="skill" name="skill" v-validate="'min:3'" />
         <!-- <button v-on:click="ChangeName" v-bind:disabled="btnState">{{btnName}}</button> -->
          <!-- <input type="checkbox" id="checkbox" v-model="checked"> -->
-        <p class="alert" v-if="errors.has('skill')">{{errors.first('skill')}}</p>
+          <transition name="alert-in">
+            <p class="alert" v-if="errors.has('skill')">{{errors.first('skill')}}</p>
+          </transition>
       </form>
       <ul>
         <li v-for="(value, index) in skills" :key='index'>
