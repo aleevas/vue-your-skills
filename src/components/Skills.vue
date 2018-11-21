@@ -14,6 +14,7 @@
           <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
           <li v-for="(value, index) in skills" :key='index'>
             {{value.skill}}
+            <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
           </li>
           </transition-group>
       </ul>
@@ -56,6 +57,9 @@ export default {
         }
       }));
 
+    },
+    remove: function(id) {
+      this.skills.splice(id, 1);
     }
   },
   props: {
